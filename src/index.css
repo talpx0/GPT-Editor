@@ -35,3 +35,13 @@ body {
 ::-webkit-scrollbar-corner {
   background: #1e1e1e; /* Match the background */
 }
+
+hr {
+  border: 1px solid #595959;
+  margin: 28px 0;
+}
+
+h3{
+  margin: 10px 0;
+  font-size: 20px;
+}
