@@ -5,6 +5,21 @@ import { formatMathExpressions } from "./tools/formatter.ts";
 import MarkdownRenderer from "./tools/MarkdownRenderer.tsx";
 
 
+
+const downloadMarkdown = (content: string) => {
+  const blob = new Blob([content], { type: "text/markdown" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "document.md";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};
+
+
+
 const SplitView = () => {
   const { markdown, setMarkdown } = useMarkdownStore();
   const formattedContent = formatMathExpressions(markdown);
@@ -28,7 +43,15 @@ const SplitView = () => {
         />
       </div>
       <div className="w-1/2 flex flex-col p-4  overflow-hidden">
-        <h2 className="text-white text-lg font-semibold">Preview</h2>
+        <div className="flex justify-between items-center pb-2">
+          <h2 className="text-white text-lg font-semibold">Preview</h2>
+          <button
+            onClick={()=>downloadMarkdown(formattedContent)}
+              className="px-6 py-3 text-white bg-gradient-to-r from-indigo-900 to-blue-700 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:from-blue-700 hover:to-indigo-900 hover:shadow-blue-500/50 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400/70"
+            >
+              Markdown
+          </button>
+        </div>
         <MarkdownRenderer content={formattedContent} />
       </div>
     </div>
