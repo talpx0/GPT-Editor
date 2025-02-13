@@ -7,7 +7,7 @@ import remarkMath from "remark-math";
 const MarkdownRenderer = ({ content }) => {
     return (
       <ReactMarkdown
-        className="flex-grow overflow-auto p-4 text-white rounded-lg"
+        className="flex-grow p-4 text-white rounded-lg prose prose-invert max-w-none"
         remarkPlugins={[remarkMath]}
         rehypePlugins={[rehypeKatex]}
       >

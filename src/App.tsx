@@ -2,7 +2,9 @@ import React from "react";
 import { NavLink } from "react-router";
 import useMarkdownStore from "./store.tsx";
 import { formatMathExpressions } from "./tools/formatter.ts";
-import MarkdownRenderer from "./tools/MarkdownRenderer.tsx";
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 
 
@@ -52,7 +54,13 @@ const SplitView = () => {
               Markdown
           </button>
         </div>
-        <MarkdownRenderer content={formattedContent} />
+          <ReactMarkdown
+            className="flex-grow p-4 text-white rounded-lg prose prose-invert max-w-none overflow-auto"
+            remarkPlugins={[remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+          >
+            {formattedContent}
+        </ReactMarkdown>
       </div>
     </div>
   );
