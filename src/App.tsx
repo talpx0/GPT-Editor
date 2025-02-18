@@ -2,10 +2,8 @@ import React from "react";
 import { NavLink } from "react-router";
 import useMarkdownStore from "./store.tsx";
 import { formatMathExpressions } from "./tools/formatter.ts";
-import ReactMarkdown from "react-markdown";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
-import remarkGfm from "remark-gfm";
+
+import MarkdownRenderer from "./tools/MarkdownRenderer.tsx";
 
 
 const downloadMarkdown = (content: string) => {
@@ -54,13 +52,7 @@ const SplitView = () => {
               Markdown
           </button>
         </div>
-          <ReactMarkdown
-            className="flex-grow p-4 text-white rounded-lg prose prose-invert max-w-none overflow-auto"
-            remarkPlugins={[remarkMath]}
-            rehypePlugins={[rehypeKatex,remarkGfm]}
-          >
-            {formattedContent}
-        </ReactMarkdown>
+          <MarkdownRenderer content={formattedContent} className={"flex-grow p-4 text-white rounded-lg prose prose-invert max-w-none overflow-auto"} />
       </div>
     </div>
   );
