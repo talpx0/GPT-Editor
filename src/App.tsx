@@ -5,7 +5,7 @@ import { formatMathExpressions } from "./tools/formatter.ts";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-
+import remarkGfm from "remark-gfm";
 
 
 const downloadMarkdown = (content: string) => {
@@ -57,7 +57,7 @@ const SplitView = () => {
           <ReactMarkdown
             className="flex-grow p-4 text-white rounded-lg prose prose-invert max-w-none overflow-auto"
             remarkPlugins={[remarkMath]}
-            rehypePlugins={[rehypeKatex]}
+            rehypePlugins={[rehypeKatex,remarkGfm]}
           >
             {formattedContent}
         </ReactMarkdown>
