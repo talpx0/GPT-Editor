@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useMarkdownStore from "./store.tsx";
 import { formatMathExpressions} from "./tools/formatter.ts";
 import MarkdownRenderer from "./tools/MarkdownRenderer.tsx";
@@ -21,10 +21,19 @@ const downloadMarkdown = (content: string) => {
 
 
 
+
 const SplitView = () => {
   const { markdownText, setMarkdown } = useMarkdownStore();
   const formattedContent = formatMathExpressions(markdownText);
-
+  const {test, setTest } =useState("") as any
+  useEffect(() => {
+    fetch(`/api/hello`)
+      .then((r) => r.json())
+      .then(setTest);
+  }, []);
+  
+  console.log(test);
+  
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
