@@ -8,18 +8,27 @@ import useScrollSync from "./hook/useScrollSync.tsx";
 
 
 
+
 const downloadMarkdown = (content: string) => {
+  const now = new Date();
+  const getFormattedDate = new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false, 
+  }).format(now).replace(',', '-');
   const blob = new Blob([content], { type: "text/markdown" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "document.md";
+  a.download = `${getFormattedDate}.md`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 };
-
 
 
 
@@ -36,7 +45,6 @@ const SplitView = () => {
 
   return (
     <div className="flex h-screen">
-      {/* ✏️ INPUT */}
       <div className="w-1/2 flex flex-col p-4">
         <div className="flex justify-between items-center pb-2">
           <h2 className="text-white text-lg font-semibold">Input</h2>
