@@ -1,7 +1,6 @@
 {
   "name": "project",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",
