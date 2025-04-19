@@ -1,9 +1,10 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { useRef } from "react";
 import useMarkdownStore from "./store.tsx";
-import { formatMathExpressions } from "./tools/formatter.ts";
-
+import { formatMathExpressions} from "./tools/formatter.ts";
 import MarkdownRenderer from "./tools/MarkdownRenderer.tsx";
+import { IconButton } from "./tools/IconButton.tsx";
+import { Download, Eye, FileText } from "lucide-react";
+import useScrollSync from "./hook/useScrollSync.tsx";
 
 
 const downloadMarkdown = (content: string) => {
@@ -21,38 +22,60 @@ const downloadMarkdown = (content: string) => {
 
 
 const SplitView = () => {
-  const { markdown, setMarkdown } = useMarkdownStore();
-  const formattedContent = formatMathExpressions(markdown);
+  const { markdownText, setMarkdown } = useMarkdownStore();
+  const formattedContent = formatMathExpressions(markdownText);
+
+
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+
+  useScrollSync(inputRef, previewRef);
 
   return (
     <div className="flex h-screen">
+      {/* ✏️ INPUT */}
       <div className="w-1/2 flex flex-col p-4">
         <div className="flex justify-between items-center pb-2">
           <h2 className="text-white text-lg font-semibold">Input</h2>
-          <NavLink 
-            to={'/download'} 
-            className="px-6 py-3 text-white bg-gradient-to-r from-indigo-900 to-blue-700 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:from-blue-700 hover:to-indigo-900 hover:shadow-blue-500/50 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400/70"
-          >
-            Download
-          </NavLink>
+          <IconButton as="nav" to="/download" icon={Eye} label="Preview" />
         </div>
+
         <textarea
-          value={markdown}
+          ref={inputRef}                     
+          value={markdownText}
           onChange={(e) => setMarkdown(e.target.value)}
-          className="flex-grow text-white text-lg rounded-lg p-4 resize-none outline-none bg-[#303030]"
+          className="flex-grow text-white bg-[#303030] rounded-lg p-4 text-lg
+                     resize-none outline-none overflow-auto"  
         />
       </div>
-      <div className="w-1/2 flex flex-col p-4  overflow-hidden">
+
+    
+      <div className="w-1/2 flex flex-col p-4 overflow-hidden">
         <div className="flex justify-between items-center pb-2">
-          <h2 className="text-white text-lg font-semibold">Preview</h2>
-          <button
-            onClick={()=>downloadMarkdown(formattedContent)}
-              className="px-6 py-3 text-white bg-gradient-to-r from-indigo-900 to-blue-700 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:from-blue-700 hover:to-indigo-900 hover:shadow-blue-500/50 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400/70"
-            >
-              Markdown
-          </button>
+          <h2 className="text-white text-lg font-semibold">Quick View</h2>
+          <div className="flex gap-3">
+            <IconButton
+              onClick={() => downloadMarkdown(formattedContent)}
+              icon={Download}
+              label="Download markdown"
+            />
+            <IconButton
+              as="nav"
+              to="/markdown"
+              icon={FileText}
+              label="Raw markdown"
+            />
+          </div>
         </div>
-          <MarkdownRenderer content={formattedContent} className={"flex-grow p-4 text-white rounded-lg prose prose-invert max-w-none overflow-auto"} />
+
+
+        <div
+          ref={previewRef}                                
+          className="flex-grow p-4 text-white rounded-lg prose prose-invert
+                     max-w-none overflow-auto" /* important: overflow-auto */
+        >
+          <MarkdownRenderer content={formattedContent} />
+        </div>
       </div>
     </div>
   );

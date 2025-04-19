@@ -37,3 +37,8 @@ body {
   background: #1e1e1e; /* Match the background */
 }
 
+
+pre {
+  white-space: pre-wrap;   /* keep \n but allow wrapping */
+  word-break: break-word;  /* break really‑long “words” */
+}

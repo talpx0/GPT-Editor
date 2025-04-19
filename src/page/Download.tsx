@@ -5,9 +5,9 @@ import { formatMathExpressions } from "../tools/formatter";
 import { useLocation } from "react-router";
 
 
-const Download = () => {
-    const { markdown } = useMarkdownStore();
-    const formattedContent = formatMathExpressions(markdown);
+const DownloadPage = () => {
+    const { markdownText } = useMarkdownStore();
+    const formattedContent = formatMathExpressions(markdownText);
     const location = useLocation(); 
 
     useEffect(() => {
@@ -30,4 +30,4 @@ const Download = () => {
     );
 };
 
-export default Download;
+export default DownloadPage;

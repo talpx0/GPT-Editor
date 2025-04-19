@@ -5,6 +5,7 @@ import App from './App.tsx';
 import { BrowserRouter, Route, Routes } from "react-router";
 import Download from './page/Download.tsx';
 import "katex/dist/katex.min.css";
+import  MarkdownPage  from './page/Markdown.tsx';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,6 +16,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/download" element={<Download />} />
+        <Route path='/markdown' element={<MarkdownPage />} />
       </Routes>
   </BrowserRouter>
   </React.StrictMode>

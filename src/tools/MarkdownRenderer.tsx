@@ -9,8 +9,8 @@ const MarkdownRenderer = ({ content, className}:{content: any, className?: strin
     return (
       <ReactMarkdown
         className= {className}
-        remarkPlugins={[remarkMath]}
-        rehypePlugins={[rehypeKatex, remarkGfm]}
+        remarkPlugins={[remarkMath,remarkGfm]}
+        rehypePlugins={[rehypeKatex]}
       >
         {content}
       </ReactMarkdown>
