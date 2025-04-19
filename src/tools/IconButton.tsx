@@ -41,7 +41,7 @@ export const IconButton = ({
   );
 
   return as === "nav" ? (
-    <NavLink to={to!} className={common}>
+    <NavLink to={to!} className={common} onClick={onClick}>
       {content}
     </NavLink>
   ) : (

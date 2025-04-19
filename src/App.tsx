@@ -24,7 +24,7 @@ const downloadMarkdown = (content: string) => {
 
 
 const SplitView = () => {
-  const { markdownText, setMarkdown } = useMarkdownStore();
+  const { markdownText, setMarkdown} = useMarkdownStore();
   const formattedContent = formatMathExpressions(markdownText);
   
   
@@ -46,7 +46,7 @@ const SplitView = () => {
         <textarea
           ref={inputRef}                     
           value={markdownText}
-          onChange={(e) => setMarkdown(e.target.value)}
+          onChange={(e) => setMarkdown(e.target.value ,null)}
           className="flex-grow text-white bg-[#303030] rounded-lg p-4 text-lg
                      resize-none outline-none overflow-auto"  
         />
@@ -55,7 +55,7 @@ const SplitView = () => {
     
       <div className="w-1/2 flex flex-col p-4 overflow-hidden">
         <div className="flex justify-between items-center pb-2">
-          <h2 className="text-white text-lg font-semibold">Quick View</h2>
+          <h2 className="text-white text-lg font-semibold">Quick View</h2>
           <div className="flex gap-3">
             <IconButton
               onClick={() => downloadMarkdown(formattedContent)}
@@ -67,6 +67,7 @@ const SplitView = () => {
               to="/markdown"
               icon={FileText}
               label="Raw markdown"
+              onClick={()=> setMarkdown(null, formattedContent)}
             />
           </div>
         </div>

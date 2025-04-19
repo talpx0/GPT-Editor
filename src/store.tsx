@@ -4,7 +4,8 @@ import { persist } from 'zustand/middleware';
 // Define the state type
 interface MarkdownState {
   markdownText: string;
-  setMarkdown: (newMarkdown: string) => void;
+  formattedMdText: string;
+  setMarkdown: (newMarkdown: string|null, formattedMdText: string| null) => void;
 }
 
 // Fix sessionStorage integration for Zustand persist middleware
@@ -14,7 +15,12 @@ const useMarkdownStore = create<MarkdownState>()(
       markdownText: String.raw`\[
         PV = \frac{A}{1 + r} \times \frac{1 - (1 + r)^{-n}}{\frac{r}{1 + r}}
       \]`,
-      setMarkdown: (newMarkdown) => set({ markdownText: newMarkdown }),
+      formattedMdText: String.raw`$$
+      \[
+        PV = \frac{A}{1 + r} \times \frac{1 - (1 + r)^{-n}}{\frac{r}{1 + r}}
+      \]
+      $$`,
+      setMarkdown: (newMarkdown, formattedMdText) => set((state)=>({ markdownText: newMarkdown ?? state.markdownText , formattedMdText: formattedMdText ?? state.formattedMdText })),
     }),
     {
       name: 'markdown-storage', // Storage key

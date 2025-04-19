@@ -5,11 +5,11 @@ import CodeBlock from "../tools/CodeBlock";
 
 
 const MarkdownPage = () => {
-    const { markdownText } = useMarkdownStore();
+    const {formattedMdText} = useMarkdownStore();
 
     return (
         <div className="flex justify-center h-screen py-12">
-                <CodeBlock>{markdownText}</CodeBlock>
+                <CodeBlock>{formattedMdText}</CodeBlock>
         </div>
     );
 };
