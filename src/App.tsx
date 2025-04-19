@@ -26,14 +26,7 @@ const downloadMarkdown = (content: string) => {
 const SplitView = () => {
   const { markdownText, setMarkdown } = useMarkdownStore();
   const formattedContent = formatMathExpressions(markdownText);
-  const {test, setTest } =useState("") as any
-  useEffect(() => {
-    fetch(`/api/hello`)
-      .then((r) => r.json())
-      .then(setTest);
-  }, []);
   
-  console.log(test);
   
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -56,7 +49,7 @@ const SplitView = () => {
           onChange={(e) => setMarkdown(e.target.value)}
           className="flex-grow text-white bg-[#303030] rounded-lg p-4 text-lg
                      resize-none outline-none overflow-auto"  
-        />{test}
+        />
       </div>
 
     
