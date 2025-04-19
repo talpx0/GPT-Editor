@@ -7,6 +7,7 @@ import { Download, Eye, FileText } from "lucide-react";
 import useScrollSync from "./hook/useScrollSync.tsx";
 
 
+
 const downloadMarkdown = (content: string) => {
   const blob = new Blob([content], { type: "text/markdown" });
   const url = URL.createObjectURL(blob);
@@ -55,7 +56,7 @@ const SplitView = () => {
           onChange={(e) => setMarkdown(e.target.value)}
           className="flex-grow text-white bg-[#303030] rounded-lg p-4 text-lg
                      resize-none outline-none overflow-auto"  
-        />
+        />{test}
       </div>
 
     
